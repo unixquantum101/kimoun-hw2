@@ -1,0 +1,43 @@
+# Deployed by Jenkins on the Swarm manager:
+#   IMAGE=<account>.dkr.ecr.<region>.amazonaws.com/<repo>:<tag> \
+#   docker stack deploy --with-registry-auth -c docker-stack.yml hw2
+#
+# ${IMAGE} is substituted from the shell environment at deploy time, so every
+# pipeline run rolls out the exact tag it just pushed (build number + commit SHA).
+
+version: "3.8"
+
+services:
+  web:
+    image: ${IMAGE}
+    ports:
+      - "80:5000"
+    networks:
+      - appnet
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 30s
+      update_config:
+        parallelism: 1            # replace one replica at a time...
+        delay: 10s                # ...wait between replicas...
+        order: start-first        # ...start the new task before stopping the old
+        failure_action: rollback  # automatic rollback if the new task fails
+        monitor: 15s
+      rollback_config:
+        parallelism: 1
+        order: stop-first
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+        reservations:
+          cpus: "0.10"
+          memory: 64M
+
+networks:
+  appnet:
+    driver: overlay
