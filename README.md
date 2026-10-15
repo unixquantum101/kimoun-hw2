@@ -1,7 +1,7 @@
 # Homework 2 — CI/CD with Jenkins, GitHub, Docker, Amazon ECR & Docker Swarm
 
-**Name:** _YOUR NAME_
-**GitHub repository:** https://github.com/unixquantum101/_REPO-NAME_
+**Name:** _SENG KIMOUN_
+**GitHub repository:** https://github.com/unixquantum101/kimoun-hw2.git
 **ECR repository:** `_ACCOUNT_ID_.dkr.ecr._REGION_.amazonaws.com/hw2-flask-app` (private, region `_REGION_`)
 **Live deployment:** http://_MANAGER_PUBLIC_IP_
 

@@ -16,10 +16,10 @@ pipeline {
 
   environment {
     // ---- EDIT THESE FOUR VALUES ----------------------------------------
-    AWS_REGION    = 'ap-southeast-1'
-    AWS_ACCOUNT   = '123456789012'
+    AWS_REGION    = 'ap-southeast-1a'
+    AWS_ACCOUNT   = '780603797333'
     ECR_REPO      = 'hw2-flask-app'
-    SWARM_MANAGER = 'ubuntu@MANAGER_PUBLIC_IP'
+    SWARM_MANAGER = 'ubuntu@47.128.220.36'
     // --------------------------------------------------------------------
     STACK_NAME    = 'hw2'
     REGISTRY      = "${AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com"
