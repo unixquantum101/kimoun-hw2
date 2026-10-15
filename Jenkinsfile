@@ -1,6 +1,3 @@
-// Declarative pipeline: Checkout -> Build -> Push to ECR -> Deploy to Swarm -> Verify
-// Triggered by a GitHub webhook (githubPush) via the ngrok URL of the local Jenkins.
-
 pipeline {
   agent any
 

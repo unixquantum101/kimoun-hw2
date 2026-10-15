@@ -1,9 +1,9 @@
 # Homework 2 — CI/CD with Jenkins, GitHub, Docker, Amazon ECR & Docker Swarm
 
-**Name:** _SENG KIMOUN_
+**Name:** SENG KIMOUN
 **GitHub repository:** https://github.com/unixquantum101/kimoun-hw2.git
-**ECR repository:** `_ACCOUNT_ID_.dkr.ecr._REGION_.amazonaws.com/hw2-flask-app` (private, region `_REGION_`)
-**Live deployment:** http://_MANAGER_PUBLIC_IP_
+**ECR repository:** `780603797333.dkr.ecr.ap-southeast-1.amazonaws.com/hw2-flask-app` (private, region `ap-southeast-1`)
+**Live deployment:** http://47.128.220.36/
 
 ---
 
@@ -48,18 +48,18 @@ the image, so you can see at a glance which pipeline run is serving traffic.
 
 ```bash
 docker build -t hw2-local ./app
-docker run --rm -p 8080:5000 hw2-local
-# open http://localhost:8080   (and http://localhost:8080/health)
+docker run --rm -p 8088:5000 hw2-local
+# open http://localhost:8088   (and http://localhost:8088/health)
 ```
 
 ## 4. Infrastructure
 
 | Component | Details |
 |---|---|
-| Jenkins | Local Ubuntu Desktop 24.04, exposed with ngrok (`https://_NGROK-URL_`) |
-| ECR | Private repo `hw2-flask-app`, region `_REGION_` |
-| Swarm manager | EC2 `_TYPE_`, Ubuntu, public IP `_MANAGER_PUBLIC_IP_` |
-| Swarm worker | EC2 `_TYPE_`, Ubuntu, public IP `_WORKER_PUBLIC_IP_` |
+| Jenkins | Local Ubuntu Desktop 24.04, exposed with ngrok (`https://stank-level-cocoa.ngrok-free.dev`) |
+| ECR | Private repo `hw2-flask-app`, region `ap-southeast-1` |
+| Swarm manager | EC2 `t3.micro`, Ubuntu, public IP `47.128.220.36` |
+| Swarm worker | EC2 `t3.micro`, Ubuntu, public IP `54.169.19.47` |
 
 **Security group rules** (one group shared by both nodes):
 
@@ -80,7 +80,7 @@ docker run --rm -p 8080:5000 hw2-local
 - Plugins: Git, GitHub, Pipeline, Credentials Binding.
 - Credentials: `aws-ecr-creds` (username/password = access key ID / secret), `swarm-manager-ssh` (SSH private key for the manager).
 - Job: *Pipeline script from SCM* → this repo → `Jenkinsfile`, trigger *GitHub hook trigger for GITScm polling*.
-- GitHub webhook: `https://_NGROK-URL_/github-webhook/`, content type `application/json`, event *Just the push event*.
+- GitHub webhook: `https://stank-level-cocoa.ngrok-free.dev/github-webhook/`, content type `application/json`, event *Just the push event*.
 
 ## 6. Pipeline stages
 
@@ -104,19 +104,9 @@ docker run --rm -p 8080:5000 hw2-local
    docker node ls                       # manager + worker, both Ready
    docker service ps hw2_web            # new tasks Running, old ones Shutdown
    ```
-5. Open `http://_MANAGER_PUBLIC_IP_` — the page shows the new build number and commit SHA.
+5. Open `http://47.128.220.36/` — the page shows the new build number and commit SHA.
 
-## 8. Git workflow used
-
-Feature branches merged through pull requests, with small descriptive commits:
-
-- PR #1 — `feature/dockerfile` — containerize the app
-- PR #2 — `feature/jenkinsfile` — add the pipeline
-- PR #3 — `feature/swarm-stack` — add `docker-stack.yml` with rolling updates
-
-_(edit to match your real PRs)_
-
-## 9. Screenshots
+## 8. Screenshots
 
 | File | Shows |
 |---|---|
@@ -124,5 +114,7 @@ _(edit to match your real PRs)_
 | `screenshots/02-ecr-repo.png` | ECR repository with tagged images |
 | `screenshots/03-jenkins-pipeline.png` | Jenkins stage view, all green |
 | `screenshots/04-webhook-delivery.png` | GitHub webhook — recent delivery 200 OK |
-| `screenshots/05-docker-node-ls.png` | `docker node ls`, all Ready |
-| `screenshots/06-running-app.png` | App at the manager's public IP |
+| `screenshots/05-docker-swarm&node-ls.png` | `docker node ls`, all Ready |
+| `screenshots/06-running-app-swarm-manager.png` | App at the manager's public IP |
+| `screenshots/06-running-app-worker1.png` | App at the manager's public IP |
+
