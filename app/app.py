@@ -16,7 +16,7 @@ def index():
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Homework 2 - CI/CD Pipeline Update</title>
+  <title>Homework 2 - CI/CD Pipeline1</title>
   <style>
     body {{ font-family: system-ui, sans-serif; margin: 3rem auto; max-width: 36rem;
            line-height: 1.6; color: #14202b; }}
