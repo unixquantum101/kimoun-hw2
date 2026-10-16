@@ -3,7 +3,7 @@
 **Name:** SENG KIMOUN
 **GitHub repository:** https://github.com/unixquantum101/kimoun-hw2.git
 **ECR repository:** `780603797333.dkr.ecr.ap-southeast-1.amazonaws.com/hw2-flask-app` (private, region `ap-southeast-1`)
-**Live deployment:** http://47.128.220.36/
+**Live deployment:** http://18.143.120.217/
 
 ---
 
@@ -58,8 +58,8 @@ docker run --rm -p 8088:5000 hw2-local
 |---|---|
 | Jenkins | Local Ubuntu Desktop 24.04, exposed with ngrok (`https://stank-level-cocoa.ngrok-free.dev`) |
 | ECR | Private repo `hw2-flask-app`, region `ap-southeast-1` |
-| Swarm manager | EC2 `t3.micro`, Ubuntu, public IP `47.128.220.36` |
-| Swarm worker | EC2 `t3.micro`, Ubuntu, public IP `54.169.19.47` |
+| Swarm manager | EC2 `t3.micro`, Ubuntu, public IP `18.143.120.217` |
+| Swarm worker | EC2 `t3.micro`, Ubuntu, public IP `52.221.163.83` |
 
 **Security group rules** (one group shared by both nodes):
 
@@ -104,7 +104,7 @@ docker run --rm -p 8088:5000 hw2-local
    docker node ls                       # manager + worker, both Ready
    docker service ps hw2_web            # new tasks Running, old ones Shutdown
    ```
-5. Open `http://47.128.220.36/` — the page shows the new build number and commit SHA.
+5. Open `http://18.143.120.217/` — the page shows the new build number and commit SHA.
 
 ## 8. Screenshots
 
